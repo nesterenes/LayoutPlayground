@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LayoutPlayground.iml" filepath="$PROJECT_DIR$/LayoutPlayground.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LayoutPlayground/LayoutPlayground-LayoutPlayground.iml" filepath="$PROJECT_DIR$/LayoutPlayground/LayoutPlayground-LayoutPlayground.iml" />
+    </modules>
+  </component>
+</project>
+

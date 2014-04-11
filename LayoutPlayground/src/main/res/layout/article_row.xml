@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<!--  ListRow Left side Thumbnail image -->
+	<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/thumbnail"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="3dip"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/image_bg"
+        android:orientation="vertical"
+	    android:layout_marginRight="5dip">
+
+    <!-- Tag -->
+    <TextView
+        android:id="@+id/tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343434"
+        android:textSize="14dip"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Tag [color - light grey 10px] | Date Yr" />
+
+    <!-- Title Of Article-->
+    <TextView
+        android:id="@+id/post_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Headline 22pt - Lorem ipsum dolor sit amet, consectetur adipisicing"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="22dip"
+        android:textStyle="bold"/>
+
+    <!-- image -->
+    <ImageView
+        android:id="@+id/post_image"
+        android:layout_width="200dip"
+        android:layout_height="200dip"
+        android:layout_marginTop="10dip"
+        android:layout_gravity="center"
+        android:src="@drawable/rihanna"/>
+
+    <!-- PostBody -->
+    <TextView
+        android:id="@+id/post_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343434"
+        android:textSize="16dip"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Body Copy - 12pt - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+
+    <!-- Rightend Duration -->
+    <TextView
+        android:id="@+id/likelihood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="5:45"
+        android:layout_marginTop="10dip"
+        android:layout_marginRight="5dip"
+        android:textSize="10dip"
+        android:textColor="#10bcc9"
+        android:textStyle="bold"
+        android:layout_gravity="right"/>
+
+
+	</LinearLayout>
+
+
