@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
-import com.oneupapplications.layoutplayground.model.article;
+import com.oneupapplications.layoutplayground.model.Article;
 
 
 /**
@@ -103,7 +103,7 @@ public class CategoryListActivity  extends FragmentActivity
     }
 
     @Override
-    public void onArtSelChanged(article artItem) {
+    public void onArtSelChanged(Article artItem) {
         //FragmentManager fm = getFragmentManager();
         Toast mToast = Toast.makeText(this, artItem.getPostTitle(), Toast.LENGTH_SHORT);
         mToast.show();

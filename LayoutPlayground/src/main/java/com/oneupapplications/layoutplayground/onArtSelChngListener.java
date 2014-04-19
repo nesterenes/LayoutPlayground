@@ -1,8 +1,8 @@
 package com.oneupapplications.layoutplayground;
 
-import com.oneupapplications.layoutplayground.model.article;
+import com.oneupapplications.layoutplayground.model.Article;
 
 public interface onArtSelChngListener {
 
-    public void onArtSelChanged(article artItem);
+    public void onArtSelChanged(Article artItem);
 }

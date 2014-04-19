@@ -2,7 +2,7 @@ package com.oneupapplications.layoutplayground.model;
 
 import java.util.ArrayList;
 
-public class article {
+public class Article {
 
     private long id;
     private String PostTitle;
@@ -103,4 +103,5 @@ public class article {
     }
 
     //-------------------------
+
 }

@@ -1,25 +1,62 @@
 package com.oneupapplications.layoutplayground;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.oneupapplications.layoutplayground.model.article;
+import com.oneupapplications.layoutplayground.model.Article;
 import com.oneupapplications.layoutplayground.utility.ImageLoader;
 import com.oneupapplications.layoutplayground.utility.LazyAdapter;
+import com.oneupapplications.layoutplayground.utility.WSHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class ArtListFragment  extends ListFragment {
 
+    //TODO TESTING
+    private ProgressDialog pDialog;
+    // URL to get contacts JSON
+    private static String url1 = "http://api.icndb.com/jokes/random?limitTo=[nerdy]";
+    private static String url = "http://google2099.com/api/Article";
+    private static String url_single = "http://google2099.com/api/Article?id=2";
+
+    // JSON Node names
+    private static final String TAG_VALUES = "value";
+    private static final String TAG_ID = "id";
+    //private static final String TAG_CATEGORY = "category";
+    private static final String TAG_JOKE = "joke";
+
+    // jokes JSONArray
+    JSONArray jokes = null;
+
+    // jokes JSONArray
+    JSONArray articles_json = null;
+
+    // Hashmap for ListView
+    ArrayList<HashMap<String, String>> jokeList;
+
+    //END TODO TESTING
+
+
     public static final String ARG_ITEM_Key = "ArticleKey";
 
-    public ArrayList<article> ArticlesArray = new ArrayList<article>();
+    public ArrayList<Article> ArticlesArray = new ArrayList<Article>();
 
     // Mandatory empty constructor for the fragment manager to instantiate
     public ArtListFragment() {
@@ -40,6 +77,8 @@ public class ArtListFragment  extends ListFragment {
         }
 
         setListAdapter(new LazyAdapter(getActivity(), ArticlesArray));
+
+        new GetWSArticles().execute();
     } // END onCreate
 
     @Override
@@ -71,7 +110,7 @@ public class ArtListFragment  extends ListFragment {
         //mToast.show();
 
         Object o = l.getAdapter().getItem(position);
-        article fullObject = (article)o;
+        Article fullObject = (Article)o;
 
         //Toast mToast = Toast.makeText(getActivity(), fullObject.getPostTitle(), Toast.LENGTH_SHORT);
         //mToast.show();
@@ -82,11 +121,11 @@ public class ArtListFragment  extends ListFragment {
 
     } // END onListItemClick
 
-    private ArrayList<article> getStaticArticles() {
+    private ArrayList<Article> getStaticArticles() {
 
-        ArrayList<article> rtn = new ArrayList<article>();
+        ArrayList<Article> rtn = new ArrayList<Article>();
 
-        article art1 = new article();
+        Article art1 = new Article();
         art1.setId(101);
         art1.setTags("tags tags 1");
         art1.setTags("tags tags 1");
@@ -96,7 +135,7 @@ public class ArtListFragment  extends ListFragment {
         art1.setImageUrl("http://api.androidhive.info/music/images/adele.png");
         art1.setLikeliness("low");
 
-        article art2 = new article();
+        Article art2 = new Article();
         art2.setId(202);
         art2.setTags("tags 222");
         art2.setPredictionYear("2015");
@@ -111,5 +150,128 @@ public class ArtListFragment  extends ListFragment {
 
         return rtn;
     }  //END ArrayList<article> getStaticArticles()
+
+
+
+
+    /**
+     * Async task class to get json by making HTTP call
+     * */
+    private class GetWSArticles extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Showing progress dialog
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Please wait...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // Creating service handler class instance
+            WSHandler sh = new WSHandler();
+
+            // Making a request to url and getting response
+            String jsonStr = sh.makeServiceCall(url, WSHandler.GET);
+
+            Log.d("Response: ", "> " + jsonStr);
+
+            if (jsonStr != null) {
+                try {
+
+//
+//                    JSONObject jsonItem = jsonObj.getJSONObject(TAG_VALUES);
+//
+//                    String id = jsonItem.getString(TAG_ID);
+//                    String joke = jsonItem.getString(TAG_JOKE);
+//
+//                    // tmp hashmap for single joke
+//                    HashMap<String, String> jokeHash = new HashMap<String, String>();
+//
+//                    // adding each child node to HashMap key => value
+//                    jokeHash.put(TAG_ID, id);
+//                    jokeHash.put(TAG_JOKE, joke);
+//
+//                    // adding joke to joke list
+//                    jokeList.add(jokeHash);
+//
+//
+                    //JSONObject jsonObj = new JSONObject(jsonStr);
+
+                    articles_json = new JSONArray(jsonStr);
+
+                    List<Article> myList = new ArrayList<Article>();
+
+                    for (int i = 0; i < articles_json.length(); i++) {
+
+                        JSONObject jsonobj_tmp = articles_json.getJSONObject(i);
+
+                        Article artTemp = new Article();
+
+                        artTemp.setId(Integer.parseInt(jsonobj_tmp.getString("Id")));
+                        artTemp.setPostTitle(jsonobj_tmp.getString("PostTitle"));
+                        artTemp.setPostBody(jsonobj_tmp.getString("PostBody"));
+                        artTemp.setLikeliness(jsonobj_tmp.getString("Likeliness"));
+                        artTemp.setTags(jsonobj_tmp.getString("Tags"));
+                        artTemp.setPredictionYear(jsonobj_tmp.getString("PredictionYear"));
+                        artTemp.setImageUrl("http://api.androidhive.info/music/images/eminem.png");
+
+
+                    }
+
+                    // Getting JSON Array node
+                    //jokes = jsonObj.getJSONArray(TAG_VALUES);
+
+                    // looping through All Contacts
+                    /*for (int i = 0; i < jokes.length(); i++) {
+                        JSONObject c = jokes.getJSONObject(i);
+
+                        String id = c.getString(TAG_ID);
+                        //String category = c.getString(TAG_CATEGORY);
+                        String joke = c.getString(TAG_JOKE);
+
+                        // Phone node is JSON Object
+
+                        // tmp hashmap for single contact
+                        HashMap<String, String> jokeHash = new HashMap<String, String>();
+
+                        // adding each child node to HashMap key => value
+                        jokeHash.put(TAG_ID, id);
+                        jokeHash.put(TAG_JOKE, joke);
+
+                        // adding contact to contact list
+                        jokeList.add(jokeHash);
+                    }*/
+                } catch (Exception e) {
+                    Log.d("tmpArticle", e.toString());
+                }
+            } else {
+                Log.e("WSHandler", "Couldn't get any data from the url");
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            // Dismiss the progress dialog
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            /**
+             * Updating parsed JSON data into ListView
+             * */
+            //ListAdapter adapter = new SimpleAdapter(
+            //        TestHandler.this, jokeList,
+             //       R.layout.activity_test_listitem, new String[] { TAG_JOKE }, new int[] { R.id.joke });
+
+            //setListAdapter(adapter);
+        }
+
+    }
 
 }

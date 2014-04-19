@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.gson.Gson;
 
-import com.oneupapplications.layoutplayground.model.article;
+import com.oneupapplications.layoutplayground.model.Article;
 
 import com.oneupapplications.layoutplayground.utility.ImageLoader;
 
@@ -17,7 +17,7 @@ public class ArtDetailFragment extends Fragment {
 
     public static final String ARG_ITEM_Key = "ArticleKey";
 
-    private article mArticle;
+    private Article mArticle;
 
     public ImageLoader imageLoader;
 
@@ -30,7 +30,7 @@ public class ArtDetailFragment extends Fragment {
 
         if (getArguments().containsKey(ARG_ITEM_Key)) {
             String tempContent = getArguments().getString(ARG_ITEM_Key);
-            mArticle = new Gson().fromJson(tempContent, article.class);
+            mArticle = new Gson().fromJson(tempContent, Article.class);
             imageLoader = new ImageLoader(this.getActivity());
         }
     }
