@@ -11,7 +11,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.oneupapplications.layoutplayground.api.Controller.WsAPIController;
 import com.oneupapplications.layoutplayground.model.Article;
 import com.oneupapplications.layoutplayground.utility.ImageLoader;
 import com.oneupapplications.layoutplayground.utility.LazyAdapter;
@@ -51,6 +54,10 @@ public class ArtListFragment  extends ListFragment {
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> jokeList;
 
+    private WsAPIController controller = null;
+
+    private String TmpInput;
+
     //END TODO TESTING
 
 
@@ -68,6 +75,9 @@ public class ArtListFragment  extends ListFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
+
+        MakeVolleyball();
+
         if(ArticlesArray.size() < 1 && savedInstanceState == null){
             ArticlesArray =  getStaticArticles();
         } else if (savedInstanceState.containsKey(ARG_ITEM_Key)) {
@@ -79,6 +89,7 @@ public class ArtListFragment  extends ListFragment {
         setListAdapter(new LazyAdapter(getActivity(), ArticlesArray));
 
         new GetWSArticles().execute();
+
     } // END onCreate
 
     @Override
@@ -271,6 +282,43 @@ public class ArtListFragment  extends ListFragment {
 
             //setListAdapter(adapter);
         }
+
+    }
+
+
+    protected void MakeVolleyball() {
+
+
+
+        controller = WsAPIController.getInstance(getActivity());
+
+        //int id, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener
+        controller.getArticleById(1, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+
+                    Log.i("VolleyInfo", "");
+
+                    String tmpString = jsonObject.getString("Id");
+
+                    Toast mToast = Toast.makeText(getActivity(),tmpString, Toast.LENGTH_SHORT);
+                    mToast.show();
+
+                    //txtJoke.setText(jsonObject.getJSONObject("value").getString("joke"));
+
+                } catch (Exception e) {
+                    //txtJoke.setText(e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                //txtJoke.setText(volleyError.getMessage());
+                Log.i("VolleyInfo", volleyError.toString());
+            }
+        });
+
 
     }
 

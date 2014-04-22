@@ -7,8 +7,9 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\dev-docs\GitFiles\LayoutPlayground" />
             <option value="C:\dev-docs\GitFiles\LayoutPlayground\LayoutPlayground" />
+            <option value="C:\dev-docs\GitFiles\LayoutPlayground\LayoutPlayground\LayoutPlayground" />
+            <option value="C:\dev-docs\GitFiles\LayoutPlayground\LayoutPlayground\volley" />
           </set>
         </option>
       </GradleProjectSettings>
