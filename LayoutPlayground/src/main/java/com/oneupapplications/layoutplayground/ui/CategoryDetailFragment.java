@@ -1,4 +1,4 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.oneupapplications.layoutplayground.R;
 import com.oneupapplications.layoutplayground.dummy.DummyContent;
 
 /**
  * A fragment representing a single Category detail screen.
  * This fragment is either contained in a {@link CategoryListActivity}
- * in two-pane mode (on tablets) or a {@link CategoryDetailActivity}
+ * in two-pane mode (on tablets) or a {@link com.oneupapplications.layoutplayground.ui.CategoryDetailActivity}
  * on handsets.
  */
 public class CategoryDetailFragment extends Fragment {

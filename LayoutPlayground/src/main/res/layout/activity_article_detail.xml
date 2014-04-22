@@ -3,7 +3,7 @@
     android:id="@+id/activity_detail_container"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    tools:context="com.oneupapplications.layoutplayground.ArtDetailActivity"
+    tools:context="com.oneupapplications.layoutplayground.ui.ArtDetailActivity"
     tools:ignore="MergeRootFrame" >
 
     <ScrollView

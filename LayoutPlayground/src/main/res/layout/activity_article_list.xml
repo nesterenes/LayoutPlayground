@@ -7,7 +7,7 @@ android:layout_marginRight="16dp"
 android:baselineAligned="false"
 android:orientation="vertical"
 android:showDividers="middle"
-tools:context="com.oneupapplications.layoutplayground.MainActivity">
+tools:context="com.oneupapplications.layoutplayground.ui.MainActivity">
 
 <FrameLayout
     android:id="@+id/left_panel_container"

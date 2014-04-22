@@ -1,4 +1,4 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 import com.google.gson.Gson;
 
-import com.oneupapplications.layoutplayground.model.article;
+import com.oneupapplications.layoutplayground.R;
+import com.oneupapplications.layoutplayground.model.Article;
 
 
 public class MainActivity  extends FragmentActivity
@@ -41,7 +42,7 @@ public class MainActivity  extends FragmentActivity
     }
 
     /**
-     * Callback method from {@link com.oneupapplications.layoutplayground.CategoryListFragment.Callbacks}
+     * Callback method from {@link CategoryListFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
     @Override
@@ -68,13 +69,13 @@ public class MainActivity  extends FragmentActivity
     }
 
     @Override
-    public void onArtSelChanged(article artItem) {
+    public void onArtSelChanged(Article artItem) {
         //FragmentManager fm = getFragmentManager();
         Toast mToast = Toast.makeText(this, artItem.getPostTitle(), Toast.LENGTH_SHORT);
         mToast.show();
 
 
-        String myJsonArticle = new Gson().toJson(artItem, article.class);
+        String myJsonArticle = new Gson().toJson(artItem, Article.class);
 
         if (mTwoPane) {
 

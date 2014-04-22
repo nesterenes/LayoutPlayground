@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oneupapplications.layoutplayground.R;
-import com.oneupapplications.layoutplayground.model.article;
+import com.oneupapplications.layoutplayground.model.Article;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,11 +18,11 @@ import java.util.HashMap;
 public class LazyAdapter extends BaseAdapter {
     
     private Activity activity;
-    private ArrayList<article> data;
+    private ArrayList<Article> data;
     private static LayoutInflater inflater=null;
     public ImageLoader imageLoader; 
     
-    public LazyAdapter(Activity a, ArrayList<article>  d) {
+    public LazyAdapter(Activity a, ArrayList<Article>  d) {
         activity = a;
         data=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,7 +54,7 @@ public class LazyAdapter extends BaseAdapter {
         
         HashMap<String, String> song = new HashMap<String, String>();
         //song = data.get(position);
-        article temp = data.get(position);
+        Article temp = data.get(position);
         
         // Setting all values in listview
         post_title.setText(temp.getPostTitle());

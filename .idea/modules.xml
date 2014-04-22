@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LayoutPlayground.iml" filepath="$PROJECT_DIR$/LayoutPlayground.iml" />
       <module fileurl="file://$PROJECT_DIR$/LayoutPlayground/LayoutPlayground-LayoutPlayground.iml" filepath="$PROJECT_DIR$/LayoutPlayground/LayoutPlayground-LayoutPlayground.iml" />
+      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
     </modules>
   </component>
 </project>
