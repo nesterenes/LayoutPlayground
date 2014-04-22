@@ -1,4 +1,4 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import com.oneupapplications.layoutplayground.model.Article;
 

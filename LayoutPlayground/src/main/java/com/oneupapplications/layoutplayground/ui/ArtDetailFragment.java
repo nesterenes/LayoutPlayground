@@ -1,4 +1,4 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.gson.Gson;
 
+import com.oneupapplications.layoutplayground.R;
 import com.oneupapplications.layoutplayground.model.Article;
 
 import com.oneupapplications.layoutplayground.utility.ImageLoader;

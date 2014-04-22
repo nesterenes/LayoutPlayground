@@ -1,4 +1,4 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -6,26 +6,20 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.oneupapplications.layoutplayground.api.Controller.WsAPIController;
 import com.oneupapplications.layoutplayground.model.Article;
-import com.oneupapplications.layoutplayground.utility.ImageLoader;
 import com.oneupapplications.layoutplayground.utility.LazyAdapter;
 import com.oneupapplications.layoutplayground.utility.WSHandler;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

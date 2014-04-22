@@ -1,10 +1,12 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+
+import com.oneupapplications.layoutplayground.R;
 
 /**
  * An activity representing a single Category detail screen. This

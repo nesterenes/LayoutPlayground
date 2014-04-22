@@ -1,4 +1,4 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import com.oneupapplications.layoutplayground.dummy.DummyContent;
  * A list fragment representing a list of Categories. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link CategoryDetailFragment}.
+ * currently being viewed in a {@link com.oneupapplications.layoutplayground.ui.CategoryDetailFragment}.
  * <p>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.

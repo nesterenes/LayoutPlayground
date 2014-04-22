@@ -1,11 +1,11 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
+import com.oneupapplications.layoutplayground.R;
 import com.oneupapplications.layoutplayground.model.Article;
 
 
@@ -13,13 +13,13 @@ import com.oneupapplications.layoutplayground.model.Article;
  * An activity representing a list of Categories. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link CategoryDetailActivity} representing
+ * lead to a {@link com.oneupapplications.layoutplayground.ui.CategoryDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link CategoryListFragment} and the item details
- * (if present) is a {@link CategoryDetailFragment}.
+ * (if present) is a {@link com.oneupapplications.layoutplayground.ui.CategoryDetailFragment}.
  * <p>
  * This activity also implements the required
  * {@link CategoryListFragment.Callbacks} interface
@@ -76,7 +76,7 @@ public class CategoryListActivity  extends FragmentActivity
     }
 
     /**
-     * Callback method from {@link com.oneupapplications.layoutplayground.CategoryListFragment.Callbacks}
+     * Callback method from {@link CategoryListFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
     @Override

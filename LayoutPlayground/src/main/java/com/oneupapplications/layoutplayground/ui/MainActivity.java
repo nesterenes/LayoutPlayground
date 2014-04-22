@@ -1,4 +1,4 @@
-package com.oneupapplications.layoutplayground;
+package com.oneupapplications.layoutplayground.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 import com.google.gson.Gson;
 
+import com.oneupapplications.layoutplayground.R;
 import com.oneupapplications.layoutplayground.model.Article;
 
 
@@ -41,7 +42,7 @@ public class MainActivity  extends FragmentActivity
     }
 
     /**
-     * Callback method from {@link com.oneupapplications.layoutplayground.CategoryListFragment.Callbacks}
+     * Callback method from {@link CategoryListFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
     @Override
