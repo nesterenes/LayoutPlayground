@@ -4,6 +4,8 @@ package com.oneupapplications.layoutplayground.api.Controller;
 import android.content.Context;
 import com.android.volley.Response;
 import com.oneupapplications.layoutplayground.api.dao.WsApiDao;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class WsAPIController {
@@ -25,6 +27,10 @@ public class WsAPIController {
 
     public void getArticleById(int id, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
         apiDao.getArticleById(id, responseListener, errorListener);
+    }
+
+    public void getCategoriesAll(Response.Listener<JSONArray> responseListener, Response.ErrorListener errorListener) {
+        apiDao.getCategoriesAll(responseListener, errorListener);
     }
 
 }

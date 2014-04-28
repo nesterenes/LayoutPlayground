@@ -11,27 +11,28 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.oneupapplications.layoutplayground.api.Controller.WsAPIController;
 import com.oneupapplications.layoutplayground.model.Article;
-import com.oneupapplications.layoutplayground.utility.LazyAdapter;
+import com.oneupapplications.layoutplayground.utility.ArticleAdapter;
 import com.oneupapplications.layoutplayground.utility.WSHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class ArtListFragment  extends ListFragment {
+public class ArtListFragment extends ListFragment {
 
     //TODO TESTING
     private ProgressDialog pDialog;
     // URL to get contacts JSON
-    private static String url1 = "http://api.icndb.com/jokes/random?limitTo=[nerdy]";
     private static String url = "http://google2099.com/api/Article";
-    private static String url_single = "http://google2099.com/api/Article?id=2";
 
     // JSON Node names
     private static final String TAG_VALUES = "value";
@@ -39,18 +40,12 @@ public class ArtListFragment  extends ListFragment {
     //private static final String TAG_CATEGORY = "category";
     private static final String TAG_JOKE = "joke";
 
-    // jokes JSONArray
-    JSONArray jokes = null;
 
     // jokes JSONArray
     JSONArray articles_json = null;
 
-    // Hashmap for ListView
-    ArrayList<HashMap<String, String>> jokeList;
-
     private WsAPIController controller = null;
 
-    private String TmpInput;
 
     //END TODO TESTING
 
@@ -67,24 +62,22 @@ public class ArtListFragment  extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-
-
-        MakeVolleyball();
 
         if(ArticlesArray.size() < 1 && savedInstanceState == null){
-            ArticlesArray =  getStaticArticles();
+            GetWsArticleList();
         } else if (savedInstanceState.containsKey(ARG_ITEM_Key)) {
-            //String tempContent = getArguments().getString(ARG_ITEM_Key);
-            //ArticlesArray = new ArrayList<article>(Arrays.asList(new Gson().fromJson(tempContent, article[].class)));
-            ArticlesArray =  getStaticArticles();
+            String tempContent = savedInstanceState.getString(ARG_ITEM_Key);
+            ArticlesArray = new ArrayList<Article>(Arrays.asList(new Gson().fromJson(tempContent, Article[].class)));
+            setListAdapter(new ArticleAdapter(getActivity(), ArticlesArray));
         }
 
-        setListAdapter(new LazyAdapter(getActivity(), ArticlesArray));
+        //TODO REMOVE
+        //setListAdapter(new ArticleAdapter(getActivity(), ArticlesArray));
+        //new GetWSArticles().execute();
 
-        new GetWSArticles().execute();
 
     } // END onCreate
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -100,13 +93,19 @@ public class ArtListFragment  extends ListFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (ArticlesArray.size() > 1) {
-            //String myJsonArticle = new Gson().toJson(ArticlesArray, article.class);
+        if (ArticlesArray.size() > 0) {
+
+            Article[] tempArray = new Article[ArticlesArray.size()];
+            tempArray = ArticlesArray.toArray(tempArray);
+            String myJsonArticle = new Gson().toJson(tempArray, Article[].class);
+
             // Serialize and persist the activated item position.
-            //outState.putString("ArticleKey", myJsonArticle);
-            outState.putString("ArticleKey", "11");
+            outState.putString(ARG_ITEM_Key, myJsonArticle);
+
+            //outState.putString("ArticleKey", "11");
         }
     }
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -125,6 +124,8 @@ public class ArtListFragment  extends ListFragment {
 
 
     } // END onListItemClick
+
+
 
     private ArrayList<Article> getStaticArticles() {
 
@@ -277,14 +278,14 @@ public class ArtListFragment  extends ListFragment {
             //setListAdapter(adapter);
         }
 
-    }
+    }  //END AsyncTask
 
 
-    protected void MakeVolleyball() {
-
-
+    protected void GetWsArticleList() {
 
         controller = WsAPIController.getInstance(getActivity());
+
+        ArticlesArray.clear();
 
         //int id, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener
         controller.getArticleById(1, new Response.Listener<JSONObject>() {
@@ -296,13 +297,26 @@ public class ArtListFragment  extends ListFragment {
 
                     String tmpString = jsonObject.getString("Id");
 
+                    Article artTemp = new Article();
+
+                    artTemp.setId(Integer.parseInt(jsonObject.getString("Id")));
+                    artTemp.setPostTitle(jsonObject.getString("PostTitle"));
+                    artTemp.setPostBody(jsonObject.getString("PostBody"));
+                    artTemp.setLikeliness(jsonObject.getString("Likeliness"));
+                    artTemp.setTags(jsonObject.getString("Tags"));
+                    artTemp.setPredictionYear(jsonObject.getString("PredictionYear"));
+                    artTemp.setImageUrl("http://api.androidhive.info/music/images/eminem.png");
+
+
                     Toast mToast = Toast.makeText(getActivity(),tmpString, Toast.LENGTH_SHORT);
                     mToast.show();
 
-                    //txtJoke.setText(jsonObject.getJSONObject("value").getString("joke"));
+                    ArticlesArray.add(artTemp);
 
-                } catch (Exception e) {
-                    //txtJoke.setText(e.getMessage());
+                    setListAdapter(new ArticleAdapter(getActivity(), ArticlesArray));
+
+                } catch (JSONException e) {
+                    Log.i("ArtListFrag-GetWsArticleList", e.toString());
                 }
             }
         }, new Response.ErrorListener() {
@@ -312,8 +326,6 @@ public class ArtListFragment  extends ListFragment {
                 Log.i("VolleyInfo", volleyError.toString());
             }
         });
-
-
     }
 
 }

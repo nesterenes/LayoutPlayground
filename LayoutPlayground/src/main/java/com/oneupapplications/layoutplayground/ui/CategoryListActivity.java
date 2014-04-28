@@ -26,7 +26,7 @@ import com.oneupapplications.layoutplayground.model.Article;
  * to listen for item selections.
  */
 public class CategoryListActivity  extends FragmentActivity
-        implements CategoryListFragment.Callbacks, onArtSelChngListener {
+        implements onCatSelChngListener, onArtSelChngListener {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -48,9 +48,11 @@ public class CategoryListActivity  extends FragmentActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((CategoryListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.category_list))
-                    .setActivateOnItemClick(true);
+
+            //OLD OLD
+//            ((CategoryListFragment) getSupportFragmentManager()
+//                    .findFragmentById(R.id.category_list))
+//                    .setActivateOnItemClick(true);
         }
 
         if (mTwoPane) {
@@ -80,13 +82,13 @@ public class CategoryListActivity  extends FragmentActivity
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onCatSelChanged(String id) {
+    public void onCatSelChanged(int id) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(CategoryDetailFragment.ARG_ITEM_ID, id);
+            arguments.putString(CategoryDetailFragment.ARG_ITEM_ID, Integer.toString(id));
             CategoryDetailFragment fragment = new CategoryDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
